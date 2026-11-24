@@ -49,6 +49,9 @@
 
   /* App card + app screen */
   .vis { position: relative; display: flex; flex-direction: column; align-items: center; width: 320px; max-width: 100%; }
+  a.nc { color: var(--white); text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  a.nc:hover i { background: #5b97f8; }
+  a.nc:active { transform: scale(.98); }
   .nc { position: relative; z-index: 2; width: 300px; background: #0b0b0b; border: 1px solid #262626; border-radius: 20px; padding: 13px; display: flex; gap: 13px; align-items: center; box-shadow: 0 22px 44px rgba(0,0,0,.7); }
   .nc-icon { width: 56px; height: 56px; flex: none; border-radius: 14px; background: var(--white); color: var(--black); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; letter-spacing: .18em; }
   .nc-icon sup { font-size: 7px; letter-spacing: 0; }
@@ -212,9 +215,9 @@
       <h2 class="wide h2">Track every car you've driven.</h2>
       <p class="lede">Search brand, model, generation and version, down to the trim. Your garage grows with every drive.</p>
     </div>
-    <div class="vis" aria-hidden="true">
-      <div class="nc"><div class="nc-icon">D B<sup>™</sup></div><div class="nc-text"><b>DriveBunch</b><span>Log every car you've driven.</span><i>Open</i></div></div>
-      <div class="scr">
+    <div class="vis">
+      <a class="nc" data-store href="https://apps.apple.com/app/id6799385437" aria-label="Open DriveBunch on the App Store"><div class="nc-icon" aria-hidden="true">D B<sup>™</sup></div><div class="nc-text" aria-hidden="true"><b>DriveBunch</b><span>Log every car you've driven.</span><i>Open</i></div></a>
+      <div aria-hidden="true" class="scr">
         <div class="scr-head"><b>Your Garage</b><span><span data-count-to="23">23</span> cars driven</span></div>
         <div class="row" style="--d:.95s">Porsche 911 (996) Carrera<span class="ring" style="--v:91;--c:#22a55b"><i>9.1</i></span></div>
         <div class="row" style="--d:1.1s">Toyota GR86<span class="ring" style="--v:78;--c:#e0a526"><i>7.8</i></span></div>
@@ -233,9 +236,9 @@
       <h2 class="wide h2">Add photos.</h2>
       <p class="lede">Up to five photos and a note for every car, so you remember how it felt.</p>
     </div>
-    <div class="vis" aria-hidden="true">
-      <div class="nc"><div class="nc-icon">D B<sup>™</sup></div><div class="nc-text"><b>DriveBunch</b><span>Make every drive memorable with photos.</span><i>Open</i></div></div>
-      <div class="scr" style="gap:11px">
+    <div class="vis">
+      <a class="nc" data-store href="https://apps.apple.com/app/id6799385437" aria-label="Open DriveBunch on the App Store"><div class="nc-icon" aria-hidden="true">D B<sup>™</sup></div><div class="nc-text" aria-hidden="true"><b>DriveBunch</b><span>Make every drive memorable with photos.</span><i>Open</i></div></a>
+      <div aria-hidden="true" class="scr" style="gap:11px">
         <img class="shot" src="/img/etype-side.webp" width="680" height="516" alt="" loading="lazy" decoding="async">
         <div class="thumbs">
           <img src="/img/etype-cockpit.webp" width="200" height="152" alt="" loading="lazy" decoding="async">
@@ -256,9 +259,9 @@
       <h2 class="wide h2">Share with your communities.</h2>
       <p class="lede">Start a community with your friends, see what everyone has driven and react to each other's cars.</p>
     </div>
-    <div class="vis" aria-hidden="true">
-      <div class="nc"><div class="nc-icon">D B<sup>™</sup></div><div class="nc-text"><b>DriveBunch</b><span>Share all your drives with your friends.</span><i>Open</i></div></div>
-      <div class="scr" style="padding-left:0;padding-right:0;padding-bottom:0;overflow:hidden">
+    <div class="vis">
+      <a class="nc" data-store href="https://apps.apple.com/app/id6799385437" aria-label="Open DriveBunch on the App Store"><div class="nc-icon" aria-hidden="true">D B<sup>™</sup></div><div class="nc-text" aria-hidden="true"><b>DriveBunch</b><span>Share all your drives with your friends.</span><i>Open</i></div></a>
+      <div aria-hidden="true" class="scr" style="padding-left:0;padding-right:0;padding-bottom:0;overflow:hidden">
         <div class="scr-head" style="padding:0 18px 4px"><b>Weekend Drivers</b><span>5 members</span></div>
         <div class="faces">
           <img src="/img/member-1.webp" width="96" height="96" alt="" loading="lazy" decoding="async">
@@ -346,6 +349,15 @@
 </footer>
 
 <script>
+  // Store links: iPhone and computers go to the App Store, Android goes to the web app.
+  (function () {
+    if (!/Android/i.test(navigator.userAgent)) return;
+    document.querySelectorAll('[data-store]').forEach(function (a) {
+      a.href = 'https://app.drivebunch.com';
+      a.setAttribute('aria-label', 'Open the DriveBunch web app');
+    });
+  })();
+
   // Live founder-badge count. Reads the public, read-only aggregate RPC
   // public.founder_badge_stats, which returns only { claimed, remaining, total }.
   // The markup ships with the last-known numbers so the page never shows a blank.
